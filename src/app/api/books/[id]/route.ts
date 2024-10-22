@@ -16,6 +16,7 @@ export async function GET(request: Request, { params }: RouteParams) {
     }
     return NextResponse.json(book)
   } catch (error) {
+    console.error('Error fetching book:', error)
     return NextResponse.json({ error: 'Error fetching book' }, { status: 500 })
   }
 }
@@ -29,6 +30,7 @@ export async function PUT(request: Request, { params }: RouteParams) {
     })
     return NextResponse.json(book)
   } catch (error) {
+    console.error('Error updating book:', error)
     return NextResponse.json({ error: 'Error updating book' }, { status: 500 })
   }
 }

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import type { Book } from '@/types/book'
 import BookCard from './BookCard'
 import BookForm from './BookForm'
-import { title } from 'process'
 import { toast } from '@/hooks/use-toast'
 
 export default function BookList() {

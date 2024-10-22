@@ -9,6 +9,7 @@ export async function GET() {
     })
     return NextResponse.json(books)
   } catch (error) {
+    console.log('Error fetching books:', error)
     return NextResponse.json({ error: 'Error fetching books' }, { status: 500 })
   }
 }
@@ -21,6 +22,7 @@ export async function POST(request: Request) {
     })
     return NextResponse.json(book, { status: 201 })
   } catch (error) {
+    console.error('Error creating book', error)
     return NextResponse.json({ error: 'Error creating book' }, { status: 500 })
   }
 }
