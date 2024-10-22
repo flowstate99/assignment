@@ -1,4 +1,4 @@
-*# Book Management
+# Book Management
 
 ## Introduction
 This project is a simple book management system that allows users to add, update, delete, and view books in a library.
