@@ -17,6 +17,9 @@ This project is a simple book management system that allows users to add, update
   cd assignment
   ```
 3. Install the required dependencies:
+  ### if macOS:
+  Check out this [link](https://www.postgresql.org/download/macosx/) to install PostgreSQL on macOS.
+  ### if Ubuntu:
   ```bash
   sudo apt install postgresql
   npm install
@@ -39,12 +42,23 @@ This project is a simple book management system that allows users to add, update
   CREATE DATABASE bookdb;
   GRANT ALL PRIVILEGES ON DATABASE bookdb TO bookuser;
   ```
-  
-2. Run the application:
+4. Run the database migrations:
   ```bash
-  npm start
+  npx prisma generate
+  npx prisma db push
   ```
-1. Follow the on-screen instructions to manage your book collection.
+  
+5. Run the application:
+  ### development:
+  ```bash
+  npm run dev
+  ```
+  ### production:
+  ```bash
+  npm run build
+  npm run start
+  ```
+6. Open your browser and navigate to `http://localhost:3000`.
 
 ## Features
 - Add new books

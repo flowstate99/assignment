@@ -27,6 +27,16 @@ export default function BookList() {
     fetchBooks()
   }, [])
 
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setEditingBook(null)
+      }
+    }
+    document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
+  }, [])
+
   const handleCreateBook = async (bookData: Omit<Book, 'id' | 'createdAt' | 'updatedAt'>) => {
     try {
       const response = await fetch('/api/books', {
@@ -78,8 +88,18 @@ export default function BookList() {
     }
   }
 
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>Error: {error}</div>
+  const handleClickOutside = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      setEditingBook(null)
+    }
+  }
+
+  const stopPropagation = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation()
+  }
+
+  if (loading) return <div className="font-sans text-lg text-slate-50">Loading...</div>
+  if (error) return <div className="font-sans text-lg text-slate-50">Error: {error}</div>
 
   return (
     <div className="space-y-8">
@@ -100,8 +120,13 @@ export default function BookList() {
       </div>
 
       {editingBook && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center"
+          onClick={handleClickOutside}
+          role='dialog'
+          aria-modal="true"
+          aria-labelledby='modal-title'>
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full"
+          onClick={stopPropagation}>
             <h2 className="text-2xl font-bold mb-4">Edit Book</h2>
             <BookForm
               book={editingBook}
